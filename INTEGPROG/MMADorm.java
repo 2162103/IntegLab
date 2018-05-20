@@ -12,5 +12,22 @@ import java.rmi.RemoteException;
 
 public interface MMADorm extends Remote {
 	public String login(String username, String password) throws RemoteException;
+	
 	public String register(String fName, String lName, String username, String pswd) throws RemoteException;
+	
+	public String createBoardingHouse(String name, int cap) throws RemoteException;
+	
+	public String setNotif(String notif) throws RemoteException;
+	
+	public String checkOut(String username, String pswd) throws RemoteException;
+	
+	public String getBoardingHouseName()throws RemoteException;
+	
+	public String getNotif() throws RemoteException;
+	
+	public int getCapacity()throws RemoteException;
+	
+	public String seeAllTenants() throws RemoteException;
+	
+	public int getNumberOfTenants()throws RemoteException;
 }

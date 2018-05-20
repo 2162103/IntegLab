@@ -25,11 +25,24 @@ public class Tenant{
     public static Scanner kbd = new Scanner(System.in);
     public static Registry registry;
     public static MMADorm stub;
+    public static String dormName = "";
+    public static String username = "";
+    public static String password = "";
     
     public static void main(String[] args) {
-        
-        reg();
-		tenantChoice1();
+        try{
+	        reg();
+	        dormName = stub.getBoardingHouseName();
+	        if(dormName.equals("")){
+	        	System.out.println("\n\n**********The Boarding House is not yet ready**********");
+	        	System.out.println("Exiting Program.............");
+	        	System.exit(0);
+	        	
+	        }
+			tenantChoice1();
+		}catch(Exception e){
+    		e.printStackTrace();
+    	}
     }//end of main method
     
     
@@ -44,15 +57,15 @@ public class Tenant{
     }//end of method reg
 
     public static void menu1(){
-        System.out.println("\n\n\n**********Welcome to MMA Dormitory**********:");
+        System.out.println("\n\n\n**********Welcome to " + dormName + " Dormitory**********");
         System.out.println("1: Tenant Login");
         System.out.println("2: Show dormitory info");
-        System.out.println("3 Check-in the boarding house");
-        System.out.println("4 Exit");
+        System.out.println("3: Check-in the boarding house");
+        System.out.println("4: Exit");
     }
     
     public static void menu2(){
-        System.out.println("*******************************************:");
+        System.out.println("\n\n\n**********Loged in as " + username + "**********");
         System.out.println("1: Check notification messages");
         System.out.println("2: Check-out");
         System.out.println("3: Exit");
@@ -71,8 +84,8 @@ public class Tenant{
                     System.out.println("Press enter to continue...");
                 } else {
                     switch (choice) {
-                        case 1 :  loginMenu();
-                        case 2 :  break;
+                        case 1 :  loginMenu(); break;
+                        case 2 :  status(); break;
                         case 3 : registerMenu(); break;
                         case 4 : System.exit(0); break;
                         default : break;
@@ -97,9 +110,9 @@ public class Tenant{
                     System.out.println("Press enter to continue...");
                 } else {
                     switch (choice) {
-                        case 1 :  break;
-                        case 2 :  break;
-                        case 3 : System.exit(0); break;
+                        case 1 :  System.out.println("\n\n\n**********Notification from the Landlord*********\n" + stub.getNotif());;break;
+                        case 2 :  checkOut();break;
+                        case 3 :  System.exit(0); break;
                         default :  break;
                     }
                 }
@@ -112,12 +125,21 @@ public class Tenant{
 
     public static void loginMenu(){
     	try{
-	    	System.out.print("Enter Username: ");
-	        String username = kbd.nextLine();
+    		System.out.println("\n\n\n**********Login**********");
+	    	System.out.print("\n\nEnter Username: ");
+	        username = kbd.nextLine();
 			System.out.print("Enter Password: ");
-			String password = kbd.nextLine();
+			password = kbd.nextLine();
 			
-			System.out.println(stub.login(username, password));
+			String status = stub.login(username, password);
+			if( (status.equals("***Login dennied***")) ) {
+				System.out.println(status);
+				System.out.println("Press Enter to Continue...");
+				String cont = kbd.nextLine();
+			} else if ( (status.equals("***You have Login***")) ){
+				tenantChoice2();
+			}
+			
     	}catch(Exception e) {
         	e.printStackTrace();
         }
@@ -125,7 +147,8 @@ public class Tenant{
     
     public static void registerMenu(){
     	try{
-	    	System.out.print("Enter First Name: ");
+    		System.out.println("\n\n\n**********Checking In**********");
+	    	System.out.print("\n\nEnter First Name: ");
 	        String fName = kbd.nextLine();
 			System.out.print("Enter Last Name: ");
 			String lName = kbd.nextLine();
@@ -142,4 +165,41 @@ public class Tenant{
         	e.printStackTrace();
         }
     }//end of registerMenu method
+    
+    public static void status(){
+    	try{
+    		System.out.println("\n\n\n**********Welcome to " + dormName + " Dormitory**********");
+    		System.out.println("The maximum capacity of this dormitory is "+ stub.getCapacity());
+    		System.out.println("There are currently "+ stub.getNumberOfTenants() + " tenants in the dormitory");
+    		System.out.println("And there are still "+ (stub.getCapacity() - stub.getNumberOfTenants()) + " available bed space/s");
+    		
+    		System.out.println("");
+    		
+    		System.out.println("Press Enter to Continue...");
+			String cont = kbd.nextLine();
+    		
+    	} catch(Exception e) {
+        	e.printStackTrace();
+        }
+    
+    }
+    
+    public static void checkOut(){
+    	try{
+    		System.out.println("\n\n\n**********Checking Out**********");
+    		System.out.println("*To check out please re-enter username and password for confirmation");
+			System.out.print("Enter Username: ");
+			String username = kbd.nextLine();
+			System.out.print("Enter Password: ");
+			String pswd = kbd.nextLine();
+			
+			System.out.println(stub.checkOut(username, pswd));
+    		
+    	} catch(Exception e) {
+        	e.printStackTrace();
+        }
+    
+    }
+    
+
 }
