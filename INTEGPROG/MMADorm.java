@@ -12,5 +12,5 @@ import java.rmi.RemoteException;
 
 public interface MMADorm extends Remote {
 	public String login(String username, String password) throws RemoteException;
-	public void register() throws RemoteException;
+	public String register(String fName, String lName, String username, String pswd) throws RemoteException;
 }

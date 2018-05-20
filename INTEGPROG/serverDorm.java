@@ -3,6 +3,7 @@ import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.*;
 /**
  * To run this client program do the following:
  * 1. Open server.policy in Notepad and set the file folder to the correct location of the server program
@@ -24,28 +25,37 @@ import java.util.Scanner;
 public class serverDorm implements MMADorm {
 
 	public static Scanner kbd = new Scanner(System.in);
+    public static ArrayList<CheckTenants> registration = new ArrayList<>();
     
     public String login(String username, String password){
-                        
-        if (username.equals("user") && password.equals("user")){
-            return "You have Login";
-        } else {
-            return "Login dennied ";
+    	String result = "***Login dennied***";
+    	for(int i = 0; i < registration.size(); i++){
+	    	if ( (((registration.get(i)).getUsername()).equals(username)) && (((registration.get(i)).getPassword()).equals(password))  ){
+	            result = "***You have Login***";
+	            break;
+	        } else {
+	            result = "***Login dennied***";
+	        }	
         }
+        
+        return result;               
+        
     }
     
-    public void register (){
-        System.out.println("Enter Your First Name");
-        String fName = kbd.nextLine();
-        System.out.println("Enter Your Last Name");
-        String lName = kbd.nextLine();
-        System.out.println("Enter Your Last Name");
-        String userName = kbd.nextLine();
-        System.out.println("Enter a Password");
-        String pswd = kbd.nextLine();
-        String resp = "\nFirst Name: " + fName + "\nLast Name: " + lName + "\nUser Name: " + userName + "\nPassword: " + pswd;
-        System.out.println(resp);
+    public String register (String fName, String lName, String username, String pswd){
+        String resp = "\nFirst Name: " + fName + "\nLast Name: " + lName + "\nUser Name: " + username + "\nPassword: " + pswd;
+		CheckTenants register = new CheckTenants(fName, lName, username, pswd);
+		registration.add(register);
+		System.out.println((registration.get(0)).getFirstName());
+		System.out.println((registration.size()));
+		System.out.println("A new tenant has checked-in");
+        return "***You have been registerd as a tenant of this dorm***";
     }
+    
+    public String setBoardName (String bName){
+    	return bName;
+    }
+    
 
 
     /************************************************
@@ -58,6 +68,8 @@ public class serverDorm implements MMADorm {
 
         	Registry registry = LocateRegistry.getRegistry();
         	registry.rebind("dorm", stub);
+        	
+        	System.out.println("Server is running.......");
                 
                 
 
