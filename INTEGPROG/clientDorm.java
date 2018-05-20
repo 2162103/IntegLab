@@ -22,20 +22,67 @@ import java.util.Scanner;
  */
 
 public class clientDorm {
+    public static Scanner kbd = new Scanner(System.in);
+    public static Registry registry;
+    public static MMADorm stub;
+    
+    public static void menu(){
+        System.out.println("**********Welcome to MMA Dormitory**********:");
+        System.out.println("1: Log-in");
+        System.out.println("2: Register");
+        System.out.println("3: Exit");
+    }
+    
+    public static void reg(){
+    	try{
+    		registry = LocateRegistry.getRegistry();
+    		stub = (MMADorm)registry.lookup("dorm");
+    	} catch(Exception e) {
+        	e.printStackTrace();
+        }
+    }
+    
     public static void main(String[] args) {
+        menu();
+        reg();
         try {
-			Registry registry = LocateRegistry.getRegistry();
-			MMADorm stub = (MMADorm)registry.lookup("dorm");
-			Scanner kb = new Scanner(System.in);
-
-                        System.out.println("Enter Username: ");
-                        String username = kb.nextLine();
-                        System.out.println("Enter Password");
-                        String password = kb.nextLine();
-                        
-                        System.out.println(stub.login(username, password));
+        	while(true){
+        		
+				int choice = Integer.parseInt(kbd.nextLine());
+                if (choice < 1 || choice > 3) {
+                    System.out.println("Invalid input!");
+                    System.out.println("Press enter to continue...");
+                } else {
+                    switch (choice) {
+                        case 1 : loginMenu(); break;
+                        case 2 : stub.register(); break;
+                        case 3 : System.exit(0); break;
+                        default : break;
+                    }
+                }
+                
+        	}
+			
         } catch(Exception e) {
         	e.printStackTrace();
         }
+    }
+    
+    
+    
+    
+    
+    public static void loginMenu(){
+    	try{
+	    	System.out.print("Enter Username: ");
+	        String username = kbd.nextLine();
+			System.out.print("Enter Password");
+			String password = kbd.nextLine();
+			
+			System.out.println(stub.login(username, password));
+    	}catch(Exception e) {
+        	e.printStackTrace();
+        }
+    	
     }
 }

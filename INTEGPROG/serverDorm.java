@@ -2,6 +2,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.rmi.registry.Registry;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
+import java.util.Scanner;
 /**
  * To run this client program do the following:
  * 1. Open server.policy in Notepad and set the file folder to the correct location of the server program
@@ -21,53 +22,29 @@ import java.rmi.RemoteException;
  */
 
 public class serverDorm implements MMADorm {
-	/****************************************************
-	 **** This section implements the Quiz interface ****
-	 ****************************************************/
-//	Object[][] testItem = {
-//		{"1. A RIVER is bigger than a STREAM. TRUE or FALSE?",                       true },
-//		{"2. There are one thousand years in a CENTURY. TRUE or FALSE?",             false},
-//		{"3. FOUNDED is the past tense of FOUND. TRUE or FALSE?",                    true },
-//		{"4. ANSWER can be used as a noun and a verb. TRUE or FALSE?",               true },
-//		{"5. SCARLET is a brilliant red colour. TRUE or FALSE?",                     true },
-//		{"6. USED TO DOING and USED TO DO mean the same thing. TRUE or FALSE?",	     false},
-//		{"7. You can use IMPROVE as a noun and as a verb. TRUE or FALSE?",           false},
-//		{"8. DOZEN is equivalent to 20. TRUE or FALSE?",                             false},
-//		{"9. The past tense of FIND is FOUND. TRUE or FALSE?",                       true },
-//		{"10. EQUIVALENT TO is (more or less) the same as EQUAL TO. TRUE or FALSE?", true }
-//	};
-//
-//	public String getQuestion(int qnNo) {
-//		return (String)testItem[qnNo][0];
-//	}
-//
-//	public int submitAnswers(boolean[] ans) {
-//		int score = 0;
-//
-//		for (int qnNo=0; qnNo<10; qnNo++) {
-//			if ((boolean)testItem[qnNo][1] == ans[qnNo]) {
-//				score ++;
-//			}
-//		}
-//
-//		return score;
-//	}
 
+	public static Scanner kbd = new Scanner(System.in);
     
-    public String login (String user, String pass){
-        if (user.equals("user") && pass.equals("user")){
+    public String login(String username, String password){
+                        
+        if (username.equals("user") && password.equals("user")){
             return "You have Login";
         } else {
-            return "Login dennied " + user + " " + pass;
+            return "Login dennied ";
         }
     }
     
-    public String register (String user, String pass){
-        if (user.equals("user") && pass.equals("user")){
-            return "You have Login";
-        } else {
-            return "Login dennied " + user + " " + pass;
-        }
+    public void register (){
+        System.out.println("Enter Your First Name");
+        String fName = kbd.nextLine();
+        System.out.println("Enter Your Last Name");
+        String lName = kbd.nextLine();
+        System.out.println("Enter Your Last Name");
+        String userName = kbd.nextLine();
+        System.out.println("Enter a Password");
+        String pswd = kbd.nextLine();
+        String resp = "\nFirst Name: " + fName + "\nLast Name: " + lName + "\nUser Name: " + userName + "\nPassword: " + pswd;
+        System.out.println(resp);
     }
 
 
