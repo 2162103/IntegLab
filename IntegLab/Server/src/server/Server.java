@@ -19,12 +19,13 @@ public class Server {
     public static String query;
     public static Statement stmt;
     public static ResultSet rs;
+    public static PreparedStatement st;
     
     public static void main(String[] args) {
         try{
             con = DriverManager.getConnection("jdbc:mysql://localhost/integprojv1?autoReconnect=true&useSSL=false", "root", ""); 
             
-            register();
+            addDorm();
             
         } catch (Exception e) {
             System.out.println(e);
@@ -49,6 +50,8 @@ public class Server {
             } else {
                 System.out.println("no");
             }
+            
+            rs.close();
         } catch (Exception e){
             
         }
@@ -83,7 +86,7 @@ public class Server {
                     System.out.println("Your Password Did Not Match");
                 }
             }
-            PreparedStatement st = con.prepareStatement(query); 
+            st = con.prepareStatement(query); 
             st.setString(1, userName);
             st.setInt(2, password.hashCode());
             st.setString(3, firstName);
@@ -97,6 +100,40 @@ public class Server {
             System.out.println(e);
         }
 
+    }
+    
+    public static void addDorm(){
+                try{
+                query = "INSERT INTO users (dorrm_name, dorm_Address, rooms_available, monthly_rent, male_dorm, female dorm) value (?, ?, ?, ?, ?, ?)";
+                String dormName, address, males, females;
+                int roomsAvailable, monthlyRent;
+                System.out.println("******Welcome to the Dorm Finder******");
+                System.out.println("ADD DORMITORY");
+                System.out.println("Dorm Name:");
+                dormName = scn.nextLine();
+                System.out.println("Address:");
+                address = scn.nextLine();
+                System.out.println("Rooms Available:");
+                roomsAvailable = Integer.parseInt(scn.nextLine());
+                System.out.println("Monthly Rent:");
+                monthlyRent = Integer.parseInt(scn.nextLine());
+                System.out.println("Can Males Apply? (T/F):");
+                males = scn.nextLine();
+                System.out.println("Can Females Apply? (T/F):");
+                females = scn.nextLine();
+                
+                st = con.prepareStatement(query); 
+                st.setString(1, dormName);
+                st.setString(2, address);
+                st.setInt(3, roomsAvailable);
+                st.setInt(4, monthlyRent);
+                st.setString(5, males);
+                st.setString(6, females);
+                    
+                } catch (Exception e){
+                    
+                }
+                
     }
     
 }
