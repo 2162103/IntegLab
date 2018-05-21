@@ -26,9 +26,9 @@ public class serverDorm implements MMADorm {
 
 	public static Scanner kbd = new Scanner(System.in);
     public static ArrayList<CheckTenants> registration = new ArrayList<>();
+    public static ArrayList<CheckTenants> tenants = new ArrayList<>();
     public static String dormName = "";
-    public static int capacity = 0;
-    public static int occupants = 0;
+    public static int capacity;
     public static String notification = "There are not notification";
     
     public String login(String username, String password){
@@ -46,14 +46,10 @@ public class serverDorm implements MMADorm {
         
     }
     
-    public String register (String fName, String lName, String username, String pswd){
-        String resp = "\nFirst Name: " + fName + "\nLast Name: " + lName + "\nUser Name: " + username + "\nPassword: " + pswd;
-		CheckTenants register = new CheckTenants(fName, lName, username, pswd);
+    public String register (String fName, String lName, String email, String phoneNum, String username, String pswd){
+		CheckTenants register = new CheckTenants(fName, lName, email, phoneNum, username, pswd);
 		registration.add(register);
-		System.out.println("A new tenant has checked-in");
-		occupants ++;
-		System.out.println("The number of tenants now is " + occupants);
-        return "***You have been registerd as a tenant of this dorm***";
+        return "***Your Registration Will be Forwarded to the LandLord For Confirmation***";
     }
     
     public String createBoardingHouse(String name, int cap){
@@ -61,17 +57,22 @@ public class serverDorm implements MMADorm {
 		capacity = cap;
 		return "You have successfully created the Boarding House " + dormName + ".\nWith a capacity of " + capacity;
 		
-    }//end of border name method
+    }
+    
+    public String editCapacity(int cap){
+		capacity = cap;
+		return "You have successfully changed the capacity to" + capacity;
+		
+    }
     
     public String checkOut(String username, String pswd){
     	String status = "Checking out failed, please input correct information";
-    	for(int i = 0; i < registration.size(); i++){
+    	for(int i = 0; i < tenants.size(); i++){
     	
-	    	if ( (((registration.get(i)).getUsername()).equals(username)) && (((registration.get(i)).getPassword()).equals(pswd))  ){
+	    	if ( (((tenants.get(i)).getUsername()).equals(username)) && (((tenants.get(i)).getPassword()).equals(pswd))  ){
 	    	
-	    		registration.remove(i);
-	    		occupants --;
-	    		System.out.println("The number of tenants now is " + occupants);
+	    		tenants.remove(i);
+	    		System.out.println("The number of tenants now is " + tenants.size());
 	    		status = "You have successfully checked out of " + dormName + " dormitory";
 	    		
 	    	}
@@ -83,15 +84,45 @@ public class serverDorm implements MMADorm {
     	
     }
     
+    public String acceptReg(int regNum){
+    	tenants.add(registration.get(regNum-1));
+    	registration.remove(regNum-1);
+    	return "Tenant Accpeted";
+    }
+    
+    
+     public String declineReg(int regNum){
+    	registration.remove(regNum-1);
+    	return "Tenant Rejected";
+    }
+    
     public String setNotif(String notif){
     	notification = notif;
     	return "Notification has been set";
     }
     
-    public String seeAllTenants(){
-    	String allTenants = "";
+    public String seeAllRegistrationReq(){
+    	String allRegistration = "";
     	for(int i = 0; i < registration.size(); i++){
-    		allTenants +=  registration.get(i).getFirstName() + "\t\t" + registration.get(i).getLastName() + "\t\t" + registration.get(i).getUsername() + "\t\t" + registration.get(i).getPassword() +"\n\n";
+    		allRegistration += "Reg#: " + (i+1) + "\tFirst Name: " + registration.get(i).getFirstName() + "\tLast Name: " + registration.get(i).getLastName() + "\tEmail: " + registration.get(i).getEmail() + "\tPhoneNum: " + registration.get(i).getPhoneNum() + "\tUsername: " + registration.get(i).getUsername() + "\tPassword: " + registration.get(i).getPassword() +"\n\n";
+    	}
+    	
+    	return allRegistration;
+    }
+    
+    public String seeAllTentants(){
+    	String allTenants = "";
+    	for(int i = 0; i < tenants.size(); i++){
+    		allTenants +=  "Tnt#: " + (i+1) + "\tFirst Name: " + tenants.get(i).getFirstName() + "\tLast Name: " + tenants.get(i).getLastName() + "\tEmail: " + tenants.get(i).getEmail() + "\tPhone Number: " + tenants.get(i).getPhoneNum() + "\tUsername: " + tenants.get(i).getUsername() + "\tPassword: " + tenants.get(i).getPassword() +"\n\n";
+    	}
+    	
+    	return allTenants;
+    }
+    
+    public String seeAllCoTentants(){
+    	String allTenants = "";
+    	for(int i = 0; i < tenants.size(); i++){
+    		allTenants +=  "Tnt#: " + (i+1) + "\tFirst Name: " + tenants.get(i).getFirstName() + "\tLast Name: " + tenants.get(i).getLastName() + "\n\n";
     	}
     	
     	return allTenants;
@@ -106,7 +137,7 @@ public class serverDorm implements MMADorm {
     }
 
 	public int getNumberOfTenants(){
-		return occupants;
+		return tenants.size();
     }
     
     public String getNotif(){

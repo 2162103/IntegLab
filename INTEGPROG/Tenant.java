@@ -60,8 +60,9 @@ public class Tenant{
         System.out.println("\n\n\n**********Welcome to " + dormName + " Dormitory**********");
         System.out.println("1: Tenant Login");
         System.out.println("2: Show dormitory info");
-        System.out.println("3: Check-in the boarding house");
-        System.out.println("4: Exit");
+        System.out.println("3: Show Tenants");
+        System.out.println("4: Check-in the boarding house");
+        System.out.println("5: Exit");
     }
     
     public static void menu2(){
@@ -86,8 +87,9 @@ public class Tenant{
                     switch (choice) {
                         case 1 :  loginMenu(); break;
                         case 2 :  status(); break;
-                        case 3 : registerMenu(); break;
-                        case 4 : System.exit(0); break;
+                        case 3 : showCoTenants(); break;
+                        case 4 : registerMenu(); break;
+                        case 5 : System.exit(0); break;
                         default : break;
                     }
                 }
@@ -152,11 +154,15 @@ public class Tenant{
 	        String fName = kbd.nextLine();
 			System.out.print("Enter Last Name: ");
 			String lName = kbd.nextLine();
+			System.out.print("Enter email: ");
+			String email = kbd.nextLine();
+			System.out.print("Enter Phone Number: ");
+			String phoneNum = kbd.nextLine();
 			System.out.print("Enter Username: ");
 			String username = kbd.nextLine();
 			System.out.print("Enter Password: ");
 			String pswd = kbd.nextLine();
-			System.out.println(stub.register(fName, lName, username, pswd));
+			System.out.println(stub.register(fName, lName, email, phoneNum, username, pswd));
 
 
 			System.out.println("Press Enter to Continue...");
@@ -169,6 +175,11 @@ public class Tenant{
     public static void status(){
     	try{
     		System.out.println("\n\n\n**********Welcome to " + dormName + " Dormitory**********");
+    		if(stub.getCapacity == stub.getNumberOfTenants()){
+    			System.out.println("THE DORM IS FULL!");
+    		} else {
+    			System.out.println("AVAILABLE SPACES");
+    		}
     		System.out.println("The maximum capacity of this dormitory is "+ stub.getCapacity());
     		System.out.println("There are currently "+ stub.getNumberOfTenants() + " tenants in the dormitory");
     		System.out.println("And there are still "+ (stub.getCapacity() - stub.getNumberOfTenants()) + " available bed space/s");
@@ -186,7 +197,7 @@ public class Tenant{
     
     public static void checkOut(){
     	try{
-    		System.out.println("\n\n\n**********Checking Out**********");
+    		System.out.println("\n\n\n**********Checking Out of " +dormName+ "**********");
     		System.out.println("*To check out please re-enter username and password for confirmation");
 			System.out.print("Enter Username: ");
 			String username = kbd.nextLine();
@@ -200,6 +211,16 @@ public class Tenant{
         }
     
     }
+    
+    public static void showCoTenants()
+  {
+    try {
+      System.out.println("\n\n******************Current Tenants of " +dormName+ "******************");
+      System.out.println(stub.seeAllCoTentants());
+    } catch (Exception e) {
+      System.out.println("\nSomething went wrong. Redirecting to Main Menu....");
+    }
+  }
     
 
 }

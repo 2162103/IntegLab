@@ -13,7 +13,7 @@ import java.rmi.RemoteException;
 public interface MMADorm extends Remote {
 	public String login(String username, String password) throws RemoteException;
 	
-	public String register(String fName, String lName, String username, String pswd) throws RemoteException;
+	public String register(String fName, String lName, String email, String phoneNum, String username, String pswd) throws RemoteException;
 	
 	public String createBoardingHouse(String name, int cap) throws RemoteException;
 	
@@ -23,11 +23,21 @@ public interface MMADorm extends Remote {
 	
 	public String getBoardingHouseName()throws RemoteException;
 	
+	String editCapacity(int cap) throws RemoteException;
+	
 	public String getNotif() throws RemoteException;
 	
 	public int getCapacity()throws RemoteException;
 	
-	public String seeAllTenants() throws RemoteException;
+	public String seeAllRegistrationReq() throws RemoteException;
 	
 	public int getNumberOfTenants()throws RemoteException;
+	
+	public String seeAllTentants() throws RemoteException;
+	
+	public String seeAllCoTentants() throws RemoteException;
+	
+	public String acceptReg(int regNum) throws RemoteException;
+	
+	public String declineReg(int regNum) throws RemoteException;
 }
