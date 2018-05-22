@@ -2,11 +2,21 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**
- * @(#)Quiz.java
+ * @(#)MMADorm.java
+ *
+ * 
+ *
+ * @author Bernabe, Casey Steven P.
+ * @author Dela Cruz, Marcus Leviticus M.
+ * @author Gayaso, Genrie L.
+ * @author Maniti, Janxiene Azly
+ * @author Pua Phee, Ashley Chester D.
+ * @author Rosal, Jericho Dave B.
+ * @author Sese, John Patrick D.
+ * @author Velasco, Rizalde Jr. A.
  *
  *
- * @author
- * @version 1.00 2018/3/27
+ * @version 1.00 2018/5/22
  */
 
 

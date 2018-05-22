@@ -1,6 +1,17 @@
 /**
- *
+ * @(#)CheckTenant.java
  * This program is used as a constructor for the registration of the tenants
+ *
+ * @author Bernabe, Casey Steven P.
+ * @author Dela Cruz, Marcus Leviticus M.
+ * @author Gayaso, Genrie L.
+ * @author Maniti, Janxiene Azly
+ * @author Pua Phee, Ashley Chester D.
+ * @author Rosal, Jericho Dave B.
+ * @author Sese, John Patrick D.
+ * @author Velasco, Rizalde Jr. A.
+ *
+ * @version 1.00 2018/5/22
  */
 public class CheckTenants{
 	

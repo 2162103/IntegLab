@@ -1,6 +1,22 @@
 import java.io.PrintStream;
 import java.rmi.registry.Registry;
 import java.util.Scanner;
+/**
+ * @(#)Landlord.java
+ * This is the Module for the Landlord. If running for the first time it will promt the Landlord to set the BoarderHose name and Capacity
+ *
+ * @author Bernabe, Casey Steven P.
+ * @author Dela Cruz, Marcus Leviticus M.
+ * @author Gayaso, Genrie L.
+ * @author Maniti, Janxiene Azly
+ * @author Pua Phee, Ashley Chester D.
+ * @author Rosal, Jericho Dave B.
+ * @author Sese, John Patrick D.
+ * @author Velasco, Rizalde Jr. A.
+ *
+ *
+ * @version 1.00 2018/5/22
+ */
 
 public class Landlord
 {

@@ -4,7 +4,22 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.*;
-
+/**
+ * @(#)serverDorm.java
+ * This is the server for the dormitory house. To run this rmiregistry should be running.
+ *
+ * @author Bernabe, Casey Steven P.
+ * @author Dela Cruz, Marcus Leviticus M.
+ * @author Gayaso, Genrie L.
+ * @author Maniti, Janxiene Azly
+ * @author Pua Phee, Ashley Chester D.
+ * @author Rosal, Jericho Dave B.
+ * @author Sese, John Patrick D.
+ * @author Velasco, Rizalde Jr. A.
+ *
+ *
+ * @version 1.00 2018/5/22
+ */
 public class serverDorm implements MMADorm {
 
 	public static Scanner kbd = new Scanner(System.in);
