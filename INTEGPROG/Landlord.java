@@ -25,7 +25,7 @@ public class Landlord
 
   public static void menu()
   {
-    System.out.println("\n\n**********Welcome to " + dormName + "Dormitory Landlord Module**********");
+    System.out.println("\n\n**********Welcome to " + dormName + " Dormitory Landlord Module**********");
     System.out.println("1: Send notification to all tenants");
     System.out.println("2: Show Current Status of Dormitory");
     System.out.println("3: Change Current Capacity");
@@ -193,6 +193,9 @@ public class Landlord
       String notif = kbd.nextLine();
       
       System.out.println(stub.setNotif(notif));
+      
+      System.out.println("Press Enter to Continue...");
+      String str = kbd.nextLine();
     }
     catch (Exception e) {
       System.out.println("\nSomething went wrong. Redirecting to Main Menu....");
@@ -205,6 +208,8 @@ public class Landlord
       System.out.println("\n\n**********************************************Registration**********************************************");
       System.out.println(stub.seeAllRegistrationReq());
       registrationChoice();
+      System.out.println("Press Enter to Continue...");
+      String str = kbd.nextLine();
     } catch (Exception e) {
       System.out.println("\nSomething went wrong. Redirecting to Main Menu....");
     }
@@ -214,7 +219,9 @@ public class Landlord
   {
     try {
       System.out.println("\n\n**********************************************Tenants**********************************************");
-      System.out.println(stub.seeAllCoTentants());
+      System.out.println(stub.seeAllTentants());
+      System.out.println("Press Enter to Continue...");
+      String str = kbd.nextLine();
     } catch (Exception e) {
       System.out.println("\nSomething went wrong. Redirecting to Main Menu....");
     }
